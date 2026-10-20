@@ -80,7 +80,7 @@ class LauncherApp:
         # 样式配置
         self._setup_styles()
         
-        # 异步加载窗口图标（微信公众号二维码）
+        # 窗口图标（Lite版不下载上游二维码）
         self._load_window_icon()
         
         # 根据激活状态决定显示哪个页面
@@ -94,32 +94,7 @@ class LauncherApp:
         setup_styles()
     
     def _load_window_icon(self):
-        """异步下载微信公众号图片并设置为窗口图标和任务栏图标"""
-        def _download():
-            try:
-                import gzip
-                import io
-                import tempfile
-                import urllib.request
-                url = "https://xy.zhinianboke.com/static/qrcode/wechat-official-group.jpg"
-                req = urllib.request.Request(url)
-                req.add_header("User-Agent", "XianyuAutoReply-GUI")
-                req.add_header("Accept-Encoding", "gzip, deflate")
-                with urllib.request.urlopen(req, timeout=10) as resp:
-                    raw = resp.read()
-                if raw[:2] == b'\x1f\x8b':
-                    raw = gzip.decompress(raw)
-                from PIL import Image
-                img = Image.open(io.BytesIO(raw))
-                # 生成多尺寸ico文件（Windows任务栏需要ico格式）
-                ico_path = Path(tempfile.gettempdir()) / "xianyu_icon.ico"
-                sizes = [(16, 16), (32, 32), (48, 48), (64, 64), (128, 128), (256, 256)]
-                img.save(str(ico_path), format="ICO", sizes=sizes)
-                self.root.after(0, lambda: self._set_icon(ico_path, img))
-            except Exception:
-                pass
-        threading.Thread(target=_download, daemon=True).start()
-    
+        """Lite版: 不再下载上游二维码图标"""
     def _set_icon(self, ico_path, pil_img):
         """
         在主线程中设置窗口图标和任务栏图标

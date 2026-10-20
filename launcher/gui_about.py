@@ -19,14 +19,8 @@ from launcher.version import CURRENT_VERSION
 # 远程二维码图片URL前缀
 _QRCODE_URL_PREFIX = "https://xy.zhinianboke.com/static/qrcode/"
 
-# 二维码配置：(文件名, 显示名称)
-_QRCODE_ITEMS = [
-    ("wechat-group.jpg", "微信群"),
-    ("qq-group.jpg", "QQ群"),
-    ("wechat-official-group.jpg", "公众号"),
-    ("telegram-group.png", "Telegram"),
-    ("reward-group.png", "赞赏码"),
-]
+# Lite版: 移除引流二维码(微信群/QQ群/公众号/Telegram/赞赏)
+_QRCODE_ITEMS = []
 
 
 def render_about_page(app):
