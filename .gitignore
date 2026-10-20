@@ -1,0 +1,13 @@
+.venv/
+node_modules
+data/*.db
+data/*.db-journal
+logs/
+*.log
+__pycache__/
+*.pyc
+.env
+backend-web/.env
+frontend/dist
+static/uploads/
+.DS_Store
